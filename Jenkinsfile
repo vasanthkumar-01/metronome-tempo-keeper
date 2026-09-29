@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -10,15 +11,14 @@ pipeline {
 
         stage('Test') {
             steps {
-               echo 'Testing Metronome & Tempo Keeper v2'
+                echo 'Testing Metronome & Tempo Keeper'
             }
         }
 
         stage('Docker Build') {
             steps {
-                echo 'Docker build stage'
+                sh 'docker build -t metronome-tempo-keeper:latest .'
             }
         }
     }
 }
-
