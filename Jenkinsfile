@@ -37,14 +37,17 @@ pipeline {
             }
         }
 
-        stage('Deploy to EC2') {
+        stage('Deploy to Kubernetes') {
             steps {
                 sshagent(['ec2-ssh-key']) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no devops@13.233.214.122 "
-                            docker pull vasanthkumar01/metronome-tempo-keeper:latest &&
-                            docker rm -f metronome-app || true &&
-                            docker run -d --name metronome-app -p 80:80 vasanthkumar01/metronome-tempo-keeper:latest
+                            cd ~/metronome-tempo-keeper &&
+                            kubectl apply -f k8s/deployment.yaml &&
+                            kubectl apply -f k8s/service.yaml &&
+                            kubectl apply -f k8s/ingress.yaml &&
+                            kubectl rollout restart deployment/metronome-app &&
+                            kubectl rollout status deployment/metronome-app --timeout=120s
                         "
                     '''
                 }
