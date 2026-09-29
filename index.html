@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Metronome & Tempo Keeper</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Metronome & Tempo Keeper</h1>
+
+        <div class="bpm-display">
+            <span id="bpm">120</span>
+            <span class="bpm-text">BPM</span>
+        </div>
+
+        <div class="controls">
+
+            <button id="decrease">−</button>
+
+            <input
+                type="range"
+                id="tempoSlider"
+                min="40"
+                max="240"
+                value="120"
+            >
+
+            <button id="increase">+</button>
+
+        </div>
+
+        <div class="beat-container">
+
+            <div class="beat" id="beat1"></div>
+            <div class="beat" id="beat2"></div>
+            <div class="beat" id="beat3"></div>
+            <div class="beat" id="beat4"></div>
+
+        </div>
+
+        <button id="startStop" class="start-button">
+            START
+        </button>
+
+        <button id="tapTempo" class="tap-button">
+            TAP TEMPO
+        </button>
+
+        <p id="status">Stopped</p>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
