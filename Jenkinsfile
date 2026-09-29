@@ -41,13 +41,17 @@ pipeline {
             steps {
                 sshagent(['ec2-ssh-key']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no devops@13.233.214.122 "
+                        ssh -o StrictHostKeyChecking=no \
+                           -o ServerAliveInterval=30 \
+                           -o ServerAliveCountMax=10 \
+                           -o ConnectTimeout=30 \
+                           devops@13.233.214.122 "
                             cd ~/metronome-tempo-keeper &&
                             kubectl apply -f k8s/deployment.yaml &&
                             kubectl apply -f k8s/service.yaml &&
                             kubectl apply -f k8s/ingress.yaml &&
                             kubectl rollout restart deployment/metronome-app &&
-                            kubectl rollout status deployment/metronome-app --timeout=120s
+                            kubectl rollout status deployment/metronome-app --timeout=180s
                         "
                     '''
                 }
