@@ -11,7 +11,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Testing Metronome & Tempo Keeper'
+               echo 'Testing Metronome & Tempo Keeper v2'
             }
         }
 
