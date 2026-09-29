@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -37,6 +36,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to EC2') {
+            steps {
+                sshagent(['ec2-ssh-key']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no devops@13.233.214.122 "
+                            docker pull vasanthkumar01/metronome-tempo-keeper:latest &&
+                            docker rm -f metronome-app || true &&
+                            docker run -d --name metronome-app -p 80:80 vasanthkumar01/metronome-tempo-keeper:latest
+                        "
+                    '''
+                }
+            }
+        }
     }
 }
-
