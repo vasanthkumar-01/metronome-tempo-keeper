@@ -1,7 +1,9 @@
+
 pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 echo 'Source code checkout completed'
@@ -16,7 +18,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t vasanthkumar01/metronome-tempo-keepe:latest .'
+                sh 'docker build -t vasanthkumar01/metronome-tempo-keeper:latest .'
             }
         }
 
@@ -29,7 +31,7 @@ pipeline {
                 )]) {
                     sh '''
                         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-                        docker push vasanthkumar01/metronome-tempo-keepe:latest
+                        docker push vasanthkumar01/metronome-tempo-keeper:latest
                         docker logout
                     '''
                 }
@@ -37,3 +39,4 @@ pipeline {
         }
     }
 }
+
